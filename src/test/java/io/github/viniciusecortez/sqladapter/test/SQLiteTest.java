@@ -33,7 +33,20 @@ public class SQLiteTest {
         Assert.assertEquals(rs.getString("nick"), "test");
         sql.disconect();
     }
-    
-    
+    /*
+    This test below verify if a complete delete will
+    happen in the database
+    */
+    @Test
+    public void deleteAll() throws SQLException{
+        sql.update("DELETE FROM Pessoa;");
+        ResultSet rs = sql.query("SELECT * FROM Pessoa;");
+        int size = 0;
+        while(rs.next()){
+            size++;
+        }
+        Assert.assertEquals(size, 0);
+        
+    }
     
 }
