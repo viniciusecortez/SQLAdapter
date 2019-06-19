@@ -18,16 +18,20 @@ public class SQLiteTest {
     @Before
     public void setUp() throws Exception{
         this.sql = new SQLite("test.db"); 
+        sql.exec("CREATE TABLE IF NOT EXISTS Pessoa(id INTEGER AUTO_INCREMENT, "
+                + "nick VARCHAR(30),"
+                + "nome VARCHAR(20));");
     }
     
     
     @Test
     public void test() throws SQLException{
-        sql.update("DELETE FROM People WHERE nick = 'test';");
-        sql.update("INSERT INTO People(nick, nome) VALUES ('test','testes');");
-        ResultSet rs = sql.query("SELECT nick FROM People WHERE nick = 'test'");
-        sql.disconect();
+        sql.update("DELETE FROM Pessoa WHERE nick = 'test';");
+        sql.update("INSERT INTO Pessoa(nick, nome) VALUES ('test','testes');");
+        ResultSet rs = sql.query("SELECT nick FROM Pessoa WHERE nick = 'test'");
+        
         Assert.assertEquals(rs.getString("nick"), "test");
+        sql.disconect();
     }
     
     
